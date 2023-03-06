@@ -97,3 +97,16 @@ class RabbitMQConsumer:
         )
         print("Waiting for messages. To exit press CTRL+C")
         self.channel.start_consuming()
+
+    def close(self) -> None:
+        """
+        Closes the RabbitMQ connection.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.connection.close()
+
