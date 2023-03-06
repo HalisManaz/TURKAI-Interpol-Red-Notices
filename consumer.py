@@ -51,3 +51,32 @@ class RabbitMQConsumer:
         )
         self.channel = self.connection.channel()
 
+    def callback(
+        self,
+        ch: pika.channel.Channel,
+        method: pika.spec.Basic.Deliver,
+        properties: pika.spec.BasicProperties,
+        body: bytes,
+    ) -> None:
+        """
+        Callback function to handle incoming messages.
+
+        Args:
+            ch (pika.channel.Channel): The channel object.
+            method (pika.spec.Basic.Deliver): The message delivery metadata.
+            properties (pika.spec.BasicProperties): The message properties.
+            body (bytes): The message body.
+
+        Returns:
+            None
+        """
+
+        # db.collection.update_many({}, {"$set": {"alert": False}})
+        print("Received message:")
+        notice = ast.literal_eval(body.decode())
+        if notice["record_year"] == datetime.datetime.now().year:
+            db = self.db.collection
+
+            if not db.find_one({"entity_id": notice["entity_id"]}):
+                print(notice["entity_id"])
+                db.collection.insert_one(notice)
