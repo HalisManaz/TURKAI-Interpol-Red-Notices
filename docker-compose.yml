@@ -9,3 +9,24 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
+  producer:
+    image: python:3.11-slim-buster
+    working_dir: /app
+    restart: always
+    container_name: ContainerA
+    volumes:
+      - ./scraper.py:/app/scraper.py
+    command: >
+      bash -c "
+        apt-get update &&
+        apt-get install -y cron &&
+        pip install --no-cache-dir aiohttp pika &&
+        echo '5 * * * * root python /app/scraper.py >> /var/log/cron.log 2>&1' > /etc/cron.d/scraper-cron &&
+        chmod 0644 /etc/cron.d/scraper-cron &&
+        crontab /etc/cron.d/scraper-cron &&
+        touch /var/log/cron.log &&
+        cron -f
+      "
+    depends_on:
+      - rabbitmq
