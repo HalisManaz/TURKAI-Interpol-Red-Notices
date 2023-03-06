@@ -1,11 +1,16 @@
 import aiohttp
+import pika
 
 
 class Scraper:
-    def __init__(self):
+    def __init__(self, host: str = "localhost", queue: str = "notices_queue"):
         self.grand_total = 0
         self.step = 0
         self.request_notices = []
+        self.host = host
+        self.queue = queue
+        self.connection = None
+        self.channel = None
 
     async def get_notices(self, loop, start: str = "", break_point: int = float("inf")):
         letters = [char for char in "AMSRIOEGBLUKHDCNTPVZFYJQW ÑX-ÁÓÉÍÀÚ&/'"] + ["/."]
@@ -33,3 +38,13 @@ class Scraper:
                     else:
                         continue
             return self.request_notices
+
+    def connect(self) -> None:
+        """
+        Connects to the RabbitMQ broker and creates a channel and queue.
+        """
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host=self.host)
+        )
+        self.channel = self.connection.channel()
+        self.channel.queue_declare(queue=self.queue)
