@@ -33,3 +33,41 @@ class StreamlitRedNotices:
             st.session_state.filter = {}
         # Initialize MongoDB object for database access.
         self.mongo = MongoDB()
+
+    def notice_representation(self, notices: List[dict]) -> None:
+        """
+        Displays Interpol red notice information in a formatted manner.
+
+        Args:
+            notices (List[dict]): A list of dictionaries containing Interpol red notice information.
+
+        Returns:
+            None
+        """
+        for notice in notices:
+            # Extract notice information from dictionary.
+            forename: str = notice["forename"]
+            name: str = notice["name"]
+            entity_id: str = notice["entity_id"]
+            nationality: str = notice["nationality"]
+            age: int = notice["age"]
+            image_url: str = notice["image_url"]
+
+            # Display notice information in a formatted manner.
+            st.markdown(
+                f"""
+        <div style="display: flex; flex-direction: column;">
+            <a href="https://www.interpol.int/en/How-we-work/Notices/View-Red-Notices#{entity_id.replace("/", "-")}">
+                <img src="{image_url}" width="184" height="238" />
+            </a>
+            <br>
+            <p><strong>Notices Id:</strong> {entity_id}</p>
+            <p><strong>Forename:</strong> {forename}</p>
+            <p><strong>Name:</strong> {name}</p>
+            <p><strong>Age:</strong> {age}</p>
+            <p><strong>Nationality:</strong> {nationality}</p>
+            <hr style='border: 2px solid gray'>
+        </div>
+        """,
+                unsafe_allow_html=True,
+            )
