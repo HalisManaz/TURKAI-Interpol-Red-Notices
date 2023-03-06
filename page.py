@@ -87,3 +87,22 @@ class StreamlitRedNotices:
             )
             self.filter()
 
+    def filter(self) -> None:
+        """
+        Filters notices based on user input.
+        """
+        if st.button("Filter", type="primary"):
+            if self.filter_notice_id:
+                st.session_state.filter["entity_id"] = self.filter_notice_id
+
+            elif self.filter_forename:
+                st.session_state.filter["forename"] = self.filter_forename
+
+            elif self.filter_name:
+                st.session_state.filter["name"] = self.filter_name
+
+            elif self.filter_nationality and self.filter_nationality != "All":
+                st.session_state.filter["nationality"] = self.filter_nationality
+            else:
+                st.session_state.filter = {}
+
