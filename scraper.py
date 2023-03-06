@@ -48,3 +48,15 @@ class Scraper:
         )
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue=self.queue)
+
+    def publish(self, notices: list) -> None:
+        """
+        Publishes a notices to the queue.
+
+        Args:
+            notices (list): The notices to be sent to the queue.
+        """
+        for notice in notices:
+            self.channel.basic_publish(
+                exchange="", routing_key=self.queue, body=str(notice)
+            )
