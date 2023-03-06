@@ -4,6 +4,8 @@ import datetime
 import aiohttp
 import pika
 
+from db import MongoDB
+
 
 class Scraper:
     def __init__(self, host: str = "localhost", queue: str = "notices_queue"):
@@ -127,6 +129,8 @@ def main():
     producer.connect()
     notices = loop.run_until_complete(producer.get_notices(loop))
     notices = producer.organize_notices_data(notices)
+    db = MongoDB()
+    db.collection.update_many({}, {"$set": {"alert": False}})
     producer.publish(notices=notices)
     producer.close()
 
