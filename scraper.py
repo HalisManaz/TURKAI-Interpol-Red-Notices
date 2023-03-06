@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import time
 
 import aiohttp
 import pika
@@ -124,15 +125,22 @@ class Scraper:
 
 
 def main():
-    loop = asyncio.get_event_loop()
-    producer = Scraper()
-    producer.connect()
-    notices = loop.run_until_complete(producer.get_notices(loop))
-    notices = producer.organize_notices_data(notices)
-    db = MongoDB()
-    db.collection.update_many({}, {"$set": {"alert": False}})
-    producer.publish(notices=notices)
-    producer.close()
+    while True:
+        try:
+            loop = asyncio.get_event_loop()
+            producer = Scraper()
+            producer.connect()
+            notices = loop.run_until_complete(producer.get_notices(loop))
+            notices = producer.organize_notices_data(notices)
+            db = MongoDB()
+            db.collection.update_many({}, {"$set": {"alert": False}})
+            producer.publish(notices=notices)
+            producer.close()
+            time.sleep(3600)
+            print("API successfully scraped. Restarting in 1 hour...")
+        except:
+            print("Unexpected error. Restarting in 60 seconds...")
+            time.sleep(60)
 
 
 if __name__ == "__main__":

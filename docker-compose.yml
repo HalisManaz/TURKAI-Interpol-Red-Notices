@@ -17,16 +17,13 @@ services:
     container_name: ContainerA
     volumes:
       - ./scraper.py:/app/scraper.py
+      - ./db.py:/app/db.py
+      - ./.env:/app/.env
     command: >
       bash -c "
         apt-get update &&
-        apt-get install -y cron &&
-        pip install aiohttp pika &&
-        echo '5 * * * * root python /app/scraper.py >> /var/log/cron.log 2>&1' > /etc/cron.d/scraper-cron &&
-        chmod 0644 /etc/cron.d/scraper-cron &&
-        crontab /etc/cron.d/scraper-cron &&
-        touch /var/log/cron.log &&
-        cron -f
+        pip install aiohttp pika pymongo python-dotenv &&
+        python3 /app/scraper.py
       "
     depends_on:
       - rabbitmq
