@@ -3,6 +3,7 @@ version: '3'
 services:
   rabbitmq:
     image: rabbitmq:3.11-management
+    domainname: rabbitmq
     restart: always
     container_name: rabbitmq
     ports:
