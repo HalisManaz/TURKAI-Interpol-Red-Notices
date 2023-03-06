@@ -106,3 +106,23 @@ class StreamlitRedNotices:
             else:
                 st.session_state.filter = {}
 
+    def show_notices(self, notices: List[dict]) -> None:
+        """
+        Displays Interpol red notices in a formatted manner.
+
+        Args:
+            notices (List[dict]): A list of dictionaries containing Interpol red notice information.
+
+        Returns:
+            None
+        """
+        # Display the notices in columns
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            self.notice_representation(notices[0::4])
+        with col2:
+            self.notice_representation(notices[1::4])
+        with col3:
+            self.notice_representation(notices[2::4])
+        with col4:
+            self.notice_representation(notices[3::4])
