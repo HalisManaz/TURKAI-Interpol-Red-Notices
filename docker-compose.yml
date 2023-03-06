@@ -21,7 +21,7 @@ services:
       bash -c "
         apt-get update &&
         apt-get install -y cron &&
-        pip install --no-cache-dir aiohttp pika &&
+        pip install aiohttp pika &&
         echo '5 * * * * root python /app/scraper.py >> /var/log/cron.log 2>&1' > /etc/cron.d/scraper-cron &&
         chmod 0644 /etc/cron.d/scraper-cron &&
         crontab /etc/cron.d/scraper-cron &&
