@@ -71,3 +71,19 @@ class StreamlitRedNotices:
         """,
                 unsafe_allow_html=True,
             )
+
+    def show_sidebar(self) -> None:
+        """
+        Displays the sidebar for filtering notices.
+        """
+        with st.sidebar:
+            # Add input fields and select box for filtering notices.
+            self.filter_notice_id = st.text_input("Notice Id")
+            self.filter_forename = st.text_input("Forename")
+            self.filter_name = st.text_input("Name")
+            self.filter_nationality = st.selectbox(
+                "Nationality",
+                ["All"] + [country.alpha_2 for country in pycountry.countries],
+            )
+            self.filter()
+
