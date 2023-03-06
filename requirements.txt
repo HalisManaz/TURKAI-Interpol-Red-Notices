@@ -3,3 +3,4 @@ pymongo
 aiohttp
 pika
 streamlit
+pycountry
