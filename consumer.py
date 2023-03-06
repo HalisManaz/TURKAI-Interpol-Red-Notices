@@ -80,3 +80,20 @@ class RabbitMQConsumer:
             if not db.find_one({"entity_id": notice["entity_id"]}):
                 print(notice["entity_id"])
                 db.collection.insert_one(notice)
+
+    def start_consuming(self) -> None:
+        """
+        Sets up a consumer to receive messages from the provided queue and starts consuming messages.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.channel.queue_declare(queue=self.queue)
+        self.channel.basic_consume(
+            queue=self.queue, on_message_callback=self.callback, auto_ack=True
+        )
+        print("Waiting for messages. To exit press CTRL+C")
+        self.channel.start_consuming()
