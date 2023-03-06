@@ -30,3 +30,23 @@ services:
       "
     depends_on:
       - rabbitmq
+
+  consumer:
+    image: python:3.11-slim-buster
+    working_dir: /app
+    restart: always
+    container_name: ContainerC
+    volumes:
+      - ./customer.py:/app/customer.py
+      - ./page.py:/app/page.py
+      - ./db.py:/app/db.py
+    command: >
+      bash -c "
+        apt-get update &&
+        apt install nano &&
+        pip install pika streamlit pycountry &&
+        python /app/customer.py &&
+        streamlit run page.py
+      "
+    depends_on:
+      - rabbitmq
