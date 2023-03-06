@@ -35,3 +35,19 @@ class RabbitMQConsumer:
         self.connection = None
         self.channel = None
         self.db = MongoDB()
+
+    def connect(self) -> None:
+        """
+        Creates a blocking RabbitMQ connection object and channel object for the provided RabbitMQ server host.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host=self.host)
+        )
+        self.channel = self.connection.channel()
+
