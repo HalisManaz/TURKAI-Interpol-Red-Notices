@@ -23,3 +23,7 @@ class MongoDB:
     def find_one(self, query: dict):
         cursor = self.collection.find_one(query)
         return cursor
+
+    def find(self, query: Optional[dict] = None):
+        cursor = self.collection.find(query)
+        return list(cursor)
