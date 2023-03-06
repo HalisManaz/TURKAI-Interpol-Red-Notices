@@ -36,17 +36,20 @@ services:
     working_dir: /app
     restart: always
     container_name: ContainerC
+    ports:
+      - "8501:8501"
     volumes:
-      - ./customer.py:/app/customer.py
+      - ./consumer.py:/app/consumer.py
       - ./page.py:/app/page.py
       - ./db.py:/app/db.py
+      - ./.env:/app/.env
     command: >
       bash -c "
         apt-get update &&
         apt install nano &&
-        pip install pika streamlit pycountry &&
-        python /app/customer.py &&
-        streamlit run page.py
+        pip install pika streamlit pycountry python-dotenv pymongo &&
+        (python /app/consumer.py &) &&
+        streamlit run page.py --server.port=8501 --server.address=0.0.0.0
       "
     depends_on:
       - rabbitmq
