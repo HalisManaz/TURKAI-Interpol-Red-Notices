@@ -19,3 +19,7 @@ class MongoDB:
         self.client = MongoClient(conn_str)
         self.db = self.client[database_name]
         self.collection = self.db[collection_name]
+
+    def find_one(self, query: dict):
+        cursor = self.collection.find_one(query)
+        return cursor
