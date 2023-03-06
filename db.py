@@ -20,12 +20,12 @@ class MongoDB:
         self.db = self.client[database_name]
         self.collection = self.db[collection_name]
 
-    def find_one(self, query: dict):
-        cursor = self.collection.find_one(query)
+    def find_one(self, filter: dict):
+        cursor = self.collection.find_one(filter)
         return cursor
 
-    def find(self, query: Optional[dict] = None):
-        cursor = self.collection.find(query)
+    def find(self, filter: Optional[dict] = None):
+        cursor = self.collection.find(filter)
         return list(cursor)
 
     def bulk_insert(self, data: list):
