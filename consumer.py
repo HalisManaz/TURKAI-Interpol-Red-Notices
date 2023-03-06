@@ -110,3 +110,9 @@ class RabbitMQConsumer:
         """
         self.connection.close()
 
+
+# Create a RabbitMQConsumer object and start consuming messages
+if __name__ == "__main__":
+    consumer = RabbitMQConsumer()
+    consumer.connect()
+    consumer.start_consuming()
