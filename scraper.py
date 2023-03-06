@@ -1,3 +1,6 @@
+import asyncio
+import datetime
+
 import aiohttp
 import pika
 
@@ -38,6 +41,56 @@ class Scraper:
                     else:
                         continue
             return self.request_notices
+
+    def organize_notices_data(self, notices: list) -> list:
+        organized_notices = []
+
+        for notice in notices:
+            try:
+                entity_id = notice["entity_id"]
+                forename = notice["forename"]
+                name = notice["name"]
+                record_year = int(notice["entity_id"].split("/")[0])
+                record_id = int(notice["entity_id"].split("/")[1])
+
+                if notice["date_of_birth"] is None:
+                    age = 0
+                elif len(notice["date_of_birth"]) == 4:
+                    age = datetime.datetime.now().year - int(notice["date_of_birth"])
+                else:
+                    age = (
+                        datetime.datetime.now().year
+                        - datetime.datetime.strptime(
+                            notice["date_of_birth"], "%Y/%m/%d"
+                        )
+                        .date()
+                        .year
+                    )
+
+                if notice["nationalities"] is not None:
+                    nationality = notice["nationalities"][0]
+                else:
+                    nationality = "Unknown"
+                image_url = notice["_links"]["thumbnail"]["href"]
+
+            except KeyError as e:
+                if str(e) == "'thumbnail'":
+                    image_url = "https://www.interpol.int/bundles/interpolfront/images/photo-not-available.png"
+
+            finally:
+                notice_data = {
+                    "entity_id": entity_id,
+                    "forename": forename,
+                    "name": name,
+                    "record_year": record_year,
+                    "record_id": record_id,
+                    "age": age,
+                    "nationality": nationality,
+                    "image_url": image_url,
+                    "alert": True,
+                }
+                organized_notices.append(notice_data)
+        return organized_notices
 
     def connect(self) -> None:
         """
