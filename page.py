@@ -173,3 +173,12 @@ class StreamlitRedNotices:
         # Display the notices in columns
         notices = notices[(page_num - 1) * 20 : page_num * 20]
         self.show_notices(notices)
+
+
+def main():
+    show_red_notices = StreamlitRedNotices()
+    show_red_notices.show_page()
+
+
+if __name__ == "__main__":
+    main()
