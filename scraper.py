@@ -119,3 +119,17 @@ class Scraper:
         Closes the connection to the RabbitMQ broker.
         """
         self.connection.close()
+
+
+def main():
+    loop = asyncio.get_event_loop()
+    producer = Scraper()
+    producer.connect()
+    notices = loop.run_until_complete(producer.get_notices(loop))
+    notices = producer.organize_notices_data(notices)
+    producer.publish(notices=notices)
+    producer.close()
+
+
+if __name__ == "__main__":
+    main()
