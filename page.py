@@ -126,3 +126,50 @@ class StreamlitRedNotices:
             self.notice_representation(notices[2::4])
         with col4:
             self.notice_representation(notices[3::4])
+
+    def show_page(self):
+        """
+        Shows the Streamlit page.
+        """
+        # Show the sidebar
+        self.show_sidebar()
+        # Show the updated date and time
+        st.markdown(
+            f"""<h3 style='text-align: center;'>
+            Updated from {datetime.datetime.now().strftime("at %H:%M on %Y/%m/%d")}
+            </h3>""",
+            unsafe_allow_html=True,
+        )
+
+        # Show the Alerts and Red Notices headers
+        st.markdown(
+            "<h1 style='text-align: center;'> Alerts⚠️</h1>", unsafe_allow_html=True
+        )
+        alert_notices = self.mongo.find(filter={"alert": True})
+        st.markdown(
+            f"""<h4> {len(alert_notices)} alerts are founded</h4>""",
+            unsafe_allow_html=True,
+        )
+
+        self.show_notices(alert_notices)
+        st.markdown("---")
+        st.markdown(
+            "<h1 style='text-align: center;'> Red Notices🚨</h1>", unsafe_allow_html=True
+        )
+
+        # Get notices from MongoDB database with filter
+        notices = self.mongo.find(filter=st.session_state.filter)
+        # Show the number of notices found
+        st.markdown(
+            f"""<h4> {len(notices)} notices are founded</h4>""", unsafe_allow_html=True
+        )
+
+        # Display the notices in pages of 20 items each
+        page_num = st.selectbox(
+            "Page",
+            [page_num for page_num in range(1, (len(notices) // 20) + 2)],
+        )
+
+        # Display the notices in columns
+        notices = notices[(page_num - 1) * 20 : page_num * 20]
+        self.show_notices(notices)
