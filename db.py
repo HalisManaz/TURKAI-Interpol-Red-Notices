@@ -27,3 +27,6 @@ class MongoDB:
     def find(self, query: Optional[dict] = None):
         cursor = self.collection.find(query)
         return list(cursor)
+
+    def bulk_insert(self, data: list):
+        self.collection.insert_many(data)
