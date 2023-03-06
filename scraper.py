@@ -8,7 +8,7 @@ from db import MongoDB
 
 
 class Scraper:
-    def __init__(self, host: str = "localhost", queue: str = "notices_queue"):
+    def __init__(self, host: str = "rabbitmq", queue: str = "notices_queue"):
         self.grand_total = 0
         self.step = 0
         self.request_notices = []

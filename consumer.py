@@ -19,7 +19,7 @@ class RabbitMQConsumer:
 
     """
 
-    def __init__(self, host: str = "localhost", queue: str = "notices_queue") -> None:
+    def __init__(self, host: str = "rabbitmq", queue: str = "notices_queue") -> None:
         """
         Initializes the RabbitMQConsumer class with the provided RabbitMQ server host and queue.
 
