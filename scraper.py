@@ -60,3 +60,9 @@ class Scraper:
             self.channel.basic_publish(
                 exchange="", routing_key=self.queue, body=str(notice)
             )
+
+    def close(self) -> None:
+        """
+        Closes the connection to the RabbitMQ broker.
+        """
+        self.connection.close()
