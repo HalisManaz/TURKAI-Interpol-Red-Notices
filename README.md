@@ -17,6 +17,12 @@ This project aims to fetch and display data from the Interpol wanted list. The d
     - .env
     - .gitignore
     - README.md
+    - pytest.ini
+    - test
+      - test_consumer.py
+      - test_page.py
+      - test_db.py
+      - test_scraper.py
 
 ## **Prerequisites**
 * Docker
