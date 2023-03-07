@@ -16,3 +16,11 @@ def test_connect():
     assert consumer.connection is not None
     assert consumer.channel is not None
 
+
+# Test the close method
+def test_close():
+    consumer = RabbitMQConsumer()
+    consumer.connect()
+    consumer.close()
+    assert consumer.connection is None
+    assert consumer.channel is None
