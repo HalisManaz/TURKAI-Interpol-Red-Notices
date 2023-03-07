@@ -23,8 +23,10 @@ services:
       bash -c "
         apt-get update &&
         pip install aiohttp pika pymongo python-dotenv &&
-        python3 /app/scraper.py
+        chmod +x /app/scraper.py &&
+        python /app/scraper.py
       "
+
     depends_on:
       - rabbitmq
 
