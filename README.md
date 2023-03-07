@@ -59,3 +59,6 @@ The following documentation is available in the app/ directory:
 * **'db.py'**: The Python script that handles database interactions.
 page.py: The Python script that creates the web page.
 * **'README.md'**: The file you are currently reading.
+
+## **License**
+This project is licensed under the [<u>MIT License</u>](https://opensource.org/license/mit/)
