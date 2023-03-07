@@ -48,3 +48,14 @@ The application requires several environment variables to be set in order to fun
 
 
 Make sure to set these environment variables before starting the application. You can do this by creating a .env file in the root of the project and setting the values there. An example .env file has been provided for reference.
+
+## **Documentation**
+The following documentation is available in the app/ directory:
+
+* **'requirements.txt'**: A list of Python dependencies required to run the application.
+* **'docker-compose'**.yml: The Docker Compose configuration file for the application.
+* **'consumer.py'**: The Python script that runs in Container A to fetch data from the Interpol API and put it into the message queue.
+* **'scraper.py'**: The Python script that scrapes data from the Interpol API.
+* **'db.py'**: The Python script that handles database interactions.
+page.py: The Python script that creates the web page.
+* **'README.md'**: The file you are currently reading.
