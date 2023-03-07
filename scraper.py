@@ -143,8 +143,8 @@ def main():
             db.collection.update_many({}, {"$set": {"alert": False}})
             producer.publish(notices=notices)
             producer.close()
-            time.sleep(int(os.getenv("INTERVAL")))
             print("API successfully scraped. Restarting in 1 hour...")
+            time.sleep(int(os.getenv("INTERVAL")))
         except Exception as e:
             print("Unexpected error:")
             print(e)
