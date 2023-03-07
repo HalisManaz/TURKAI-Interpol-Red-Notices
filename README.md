@@ -17,3 +17,10 @@ This project aims to fetch and display data from the Interpol wanted list. The d
 ## Prerequisites
 * Docker
 * Docker Compose
+
+## Guideli of Running the Application
+1. Clone this repository to your local machine.
+2. Create a .env file and set the necessary environment variables. You can use the .env file in the project root as a template.
+3. Open a terminal and navigate to the project root directory.
+4. Run docker-compose up --build to build and start the Docker containers.
+5. Open your web browser and go to http://localhost:8000 to access the web page.
