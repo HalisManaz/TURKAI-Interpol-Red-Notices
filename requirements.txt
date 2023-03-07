@@ -4,3 +4,4 @@ aiohttp
 pika
 streamlit
 pycountry
+pytest
