@@ -14,3 +14,6 @@ This project aims to fetch and display data from the Interpol wanted list. The d
     - .gitignore
     - README.md
 
+## Prerequisites
+* Docker
+* Docker Compose
