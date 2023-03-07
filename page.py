@@ -134,9 +134,12 @@ class StreamlitRedNotices:
         # Show the sidebar
         self.show_sidebar()
         # Show the updated date and time
+        updated_time = self.mongo.collection.find_one(
+            {}, sort=[("record_year", -1), ("record_id", -1)]
+        )["timestamp"].strftime("at %H:%M on %Y/%m/%d")
         st.markdown(
             f"""<h3 style='text-align: center;'>
-            Updated from {datetime.datetime.now().strftime("at %H:%M on %Y/%m/%d")}
+            Updated from {updated_time}
             </h3>""",
             unsafe_allow_html=True,
         )
