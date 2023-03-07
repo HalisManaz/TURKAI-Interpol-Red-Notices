@@ -1,6 +1,7 @@
 import os
 from typing import Optional
 
+import pymongo
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -25,7 +26,9 @@ class MongoDB:
         return cursor
 
     def find(self, filter: Optional[dict] = None):
-        cursor = self.collection.find(filter)
+        cursor = self.collection.find(
+            filter,
+        ).sort([("record_year", pymongo.DESCENDING), ("record_id", pymongo.DESCENDING)])
         return list(cursor)
 
     def bulk_insert(self, data: list):
