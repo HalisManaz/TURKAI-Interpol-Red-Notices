@@ -32,7 +32,7 @@ services:
     image: python:3.11-slim-buster
     working_dir: /app
     restart: always
-    container_name: ContainerC
+    container_name: ContainerB
     ports:
       - "8501:8501"
     volumes:
