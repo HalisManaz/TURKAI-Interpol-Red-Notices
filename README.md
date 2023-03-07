@@ -45,6 +45,10 @@ The application is composed of three Docker containers:
 
 3. **'Container C'**: This container contains the message queue system RabbitMQ.
 
+<p align="center">
+  <img src="https://drive.google.com/uc?id=12GTakkG486hZrwW7_GD9yfp8-gDCw7dK" alt="TURK AI Image" width="600">
+</p>
+
 ## **Environment Variables**
 The application requires several environment variables to be set in order to function properly. These are the following:
 
