@@ -78,6 +78,8 @@ class RabbitMQConsumer:
         """
 
         # db.collection.update_many({}, {"$set": {"alert": False}})
+        timestamp = datetime.datetime.now()
+        print("Received message at:", timestamp)
         print("Received message:")
         notice = ast.literal_eval(body.decode())
         if notice["record_year"] == datetime.datetime.now().year:
@@ -85,7 +87,13 @@ class RabbitMQConsumer:
 
             if not db.find_one({"entity_id": notice["entity_id"]}):
                 print(notice["entity_id"])
+                notice["timestamp"] = timestamp
                 db.collection.insert_one(notice)
+            else:
+                db.update_one(
+                    {"entity_id": notice["entity_id"]},
+                    {"$set": {"timestamp": timestamp}},
+                )
 
     def start_consuming(self) -> None:
         """
