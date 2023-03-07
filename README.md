@@ -34,3 +34,17 @@ The application is composed of three Docker containers:
 2. Container B: This container is a Python-based web server that listens to the message queue system in Container C. It saves the data in the required database and displays it on a simple HTML web page along with a timestamp. Whenever a new piece of data is consumed from the queue, the web page is updated. If an already saved record is updated, an alarm is displayed on the web page.
 
 3. Container C: This container contains the message queue system RabbitMQ.
+
+## Environment Variables
+The application requires several environment variables to be set in order to function properly. These are the following:
+
+* **MONGODB_USERNAME**: The username used to connect to the MongoDB instance.
+* **MONGODB_PASSWORD**: The password used to connect to the MongoDB instance.
+* **MONGODB_CLUSTER**: The cluster address of the MongoDB instance.
+* **MONGODB_DATABASE**: The name of the database to use in the MongoDB instance.
+* **MONGODB_COLLECTION**: The name of the collection to use in the MongoDB instance.
+* **INTERVAL**: The interval (in seconds) at which the scraper should scrape for new data.
+* **RABBITMQ_HOST**: The host address of the RabbitMQ instance.
+
+
+Make sure to set these environment variables before starting the application. You can do this by creating a .env file in the root of the project and setting the values there. An example .env file has been provided for reference.
