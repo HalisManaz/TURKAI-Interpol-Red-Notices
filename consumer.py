@@ -1,10 +1,14 @@
 import ast
 import datetime
-import json
+import os
 
 import pika
+from dotenv import load_dotenv
 
 from db import MongoDB
+
+# Load variables from .env file
+load_dotenv()
 
 
 class RabbitMQConsumer:
@@ -19,7 +23,9 @@ class RabbitMQConsumer:
 
     """
 
-    def __init__(self, host: str = "rabbitmq", queue: str = "notices_queue") -> None:
+    def __init__(
+        self, host: str = os.getenv("RABBITMQ_HOST"), queue: str = "notices_queue"
+    ) -> None:
         """
         Initializes the RabbitMQConsumer class with the provided RabbitMQ server host and queue.
 

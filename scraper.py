@@ -1,15 +1,22 @@
 import asyncio
 import datetime
+import os
 import time
 
 import aiohttp
 import pika
+from dotenv import load_dotenv
 
 from db import MongoDB
 
+# Load variables from .env file
+load_dotenv()
+
 
 class Scraper:
-    def __init__(self, host: str = "rabbitmq", queue: str = "notices_queue"):
+    def __init__(
+        self, host: str = os.getenv("RABBITMQ_HOST"), queue: str = "notices_queue"
+    ):
         self.grand_total = 0
         self.step = 0
         self.request_notices = []
@@ -136,7 +143,7 @@ def main():
             db.collection.update_many({}, {"$set": {"alert": False}})
             producer.publish(notices=notices)
             producer.close()
-            time.sleep(3600)
+            time.sleep(os.getenv("INTERVAL"))
             print("API successfully scraped. Restarting in 1 hour...")
         except:
             print("Unexpected error. Restarting in 60 seconds...")
