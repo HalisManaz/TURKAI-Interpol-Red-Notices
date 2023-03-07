@@ -123,6 +123,8 @@ class RabbitMQConsumer:
             None
         """
         self.connection.close()
+        self.connection = None
+        self.channel = None
 
 
 # Create a RabbitMQConsumer object and start consuming messages
