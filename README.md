@@ -1,8 +1,8 @@
-# Interpol Wanted List Web App
-## Introduction
+# **Interpol Red Notices Web Application**
+## **Introduction**
 This project aims to fetch and display data from the Interpol wanted list. The data is fetched periodically from Interpol and stored in a message queue system. Then, it is consumed by a web server, which saves it into a database and displays it in a web page along with a timestamp. The architecture of the application is designed to run in three Docker containers.
 
-## Project Structure
+## **Project Structure**
 - app/
     - consumer.py
     - db.py
@@ -14,11 +14,11 @@ This project aims to fetch and display data from the Interpol wanted list. The d
     - .gitignore
     - README.md
 
-## Prerequisites
+## **Prerequisites**
 * Docker
 * Docker Compose
 
-## Guideli of Running the Application
+## **Guidline of Running the Application**
 1. Clone this repository to your local machine.
 2. Create a .env file and set the necessary environment variables. You can use the .env file in the project root as a template.
 3. Open a terminal and navigate to the project root directory.
@@ -26,25 +26,25 @@ This project aims to fetch and display data from the Interpol wanted list. The d
 5. Open your web browser and go to http://localhost:8000 to access the web page.
 
 
-## Architecture
+## **Architecture**
 The application is composed of three Docker containers:
 
-1. Container A: This container periodically fetches the data from the Interpol wanted list and puts it into the message queue system in Container C.
+1. **'Container A'**: This container periodically fetches the data from the Interpol wanted list and puts it into the message queue system in Container C.
 
-2. Container B: This container is a Python-based web server that listens to the message queue system in Container C. It saves the data in the required database and displays it on a simple HTML web page along with a timestamp. Whenever a new piece of data is consumed from the queue, the web page is updated. If an already saved record is updated, an alarm is displayed on the web page.
+2. **'Container B'**: This container is a Python-based web server that listens to the message queue system in Container C. It saves the data in the required database and displays it on a simple HTML web page along with a timestamp. Whenever a new piece of data is consumed from the queue, the web page is updated. If an already saved record is updated, an alarm is displayed on the web page.
 
-3. Container C: This container contains the message queue system RabbitMQ.
+3. **'Container C'**: This container contains the message queue system RabbitMQ.
 
-## Environment Variables
+## **Environment Variables**
 The application requires several environment variables to be set in order to function properly. These are the following:
 
-* **MONGODB_USERNAME**: The username used to connect to the MongoDB instance.
-* **MONGODB_PASSWORD**: The password used to connect to the MongoDB instance.
-* **MONGODB_CLUSTER**: The cluster address of the MongoDB instance.
-* **MONGODB_DATABASE**: The name of the database to use in the MongoDB instance.
-* **MONGODB_COLLECTION**: The name of the collection to use in the MongoDB instance.
-* **INTERVAL**: The interval (in seconds) at which the scraper should scrape for new data.
-* **RABBITMQ_HOST**: The host address of the RabbitMQ instance.
+* **'MONGODB_USERNAME'**: The username used to connect to the MongoDB instance.
+* **'MONGODB_PASSWORD'**: The password used to connect to the MongoDB instance.
+* **'MONGODB_CLUSTER'**: The cluster address of the MongoDB instance.
+* **'MONGODB_DATABASE'**: The name of the database to use in the MongoDB instance.
+* **'MONGODB_COLLECTION'**: The name of the collection to use in the MongoDB instance.
+* **'INTERVAL'**: The interval (in seconds) at which the scraper should scrape for new data.
+* **'RABBITMQ_HOST'**: The host address of the RabbitMQ instance.
 
 
 Make sure to set these environment variables before starting the application. You can do this by creating a .env file in the root of the project and setting the values there. An example .env file has been provided for reference.
