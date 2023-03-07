@@ -67,11 +67,16 @@ Make sure to set these environment variables before starting the application. Yo
 The following documentation is available in the app/ directory:
 
 * **'requirements.txt'**: A list of Python dependencies required to run the application.
-* **'docker-compose'**.yml: The Docker Compose configuration file for the application.
+* **'docker-compose.yml'**: The Docker Compose configuration file for the application.
 * **'consumer.py'**: The Python script that runs in Container A to fetch data from the Interpol API and put it into the message queue.
 * **'scraper.py'**: The Python script that scrapes data from the Interpol API.
 * **'db.py'**: The Python script that handles database interactions.
 page.py: The Python script that creates the web page.
+* **'test/'**: a folder that contains test files.
+* **'TURK AI Python Developer Task Presentation.pptx'**: a PowerPoint presentation that explains the project requirements and implementation details.
+* **'.gitignore'**: a file that specifies files and folders to be ignored by Git.
+* **'pytest.ini'**: a file that contains configuration settings for pytest.
+* **'page.py'**: a Python script that contains a Streamlit web application that displays messages from the MongoDB database.
 * **'README.md'**: The file you are currently reading.
 
 ## **License**
